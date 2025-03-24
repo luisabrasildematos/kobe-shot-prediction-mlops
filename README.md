@@ -150,13 +150,13 @@ requirements.txt - Dependências do projet
    - Seleção de features relevantes
    - Divisão em conjuntos de treino e teste
 
-2. Treinamento: Pipeline para treinar e avaliar modelos
+3. Treinamento: Pipeline para treinar e avaliar modelos
    - Regressão Logística com PyCaret/sklearn
    - Árvore de Decisão com PyCaret/sklearn
    - Avaliação com métricas (log loss, F1 score)
    - Seleção do melhor modelo
 
-3. PipelineAplicacao: Pipeline de aplicação em produção
+4. PipelineAplicacao: Pipeline de aplicação em produção
    - Carregamento do modelo treinado
    - Aplicação em dados de produção
    - Monitoramento de performance
