@@ -23,23 +23,26 @@ Develop, train, and deploy machine learning models capable of predicting the out
 
 The project follows the Microsoft TDSP structure:
 
-Code/                     # All source code
-  DataPrep/               # Data preparation code
-  Model/                  # Training and evaluation code
-  Operationalization/     # Deployment and monitoring code
+Code/ - All source code
 
-Data/                     # Data directories
-  Raw/                    # Raw data
-  Processed/              # Processed data
-  Modeling/               # Data for modeling
+DataPrep/ - Data preparation code
+Model/ - Training and evaluation code
+Operationalization/ - Deployment and monitoring code
 
-Docs/                     # Documentation
-  Project/                # Project documents
-  DataReport/             # Data reports and analysis
-  Model/                  # Model documentation
+Data/ - Data directories
 
-README.md                 # This file
-requirements.txt          # Project dependencies
+Raw/ - Raw data
+Processed/ - Processed data
+Modeling/ - Data for modeling
+
+Docs/ - Documentation
+
+Project/ - Project documents
+DataReport/ - Data reports and analysis
+Model/ - Model documentation
+
+README.md - This file
+requirements.txt - Project dependencies
 
 ## Implemented Pipelines
 
@@ -119,23 +122,26 @@ Desenvolver, treinar e implantar modelos de machine learning capazes de prever o
 
 O projeto segue a estrutura Microsoft TDSP:
 
-Code/                     # Todo o código fonte
-  DataPrep/               # Código para preparação de dados
-  Model/                  # Código para treinamento e avaliação
-  Operationalization/     # Código para implantação e monitoramento
+Code/ - Todo o código fonte
 
-Data/                     # Diretórios de dados
-  Raw/                    # Dados brutos
-  Processed/              # Dados processados
-  Modeling/               # Dados para modelagem
+DataPrep/ - Código para preparação de dados
+Model/ - Código para treinamento e avaliação
+Operationalization/ - Código para implantação e monitoramento
 
-Docs/                     # Documentação
-  Project/                # Documentos do projeto
-  DataReport/             # Relatórios e análises de dados
-  Model/                  # Documentação dos modelos
+Data/ - Diretórios de dados
 
-README.md                 # Este arquivo
-requirements.txt          # Dependências do projeto
+Raw/ - Dados brutos
+Processed/ - Dados processados
+Modeling/ - Dados para modelagem
+
+Docs/ - Documentação
+
+Project/ - Documentos do projeto
+DataReport/ - Relatórios e análises de dados
+Model/ - Documentação dos modelos
+
+README.md - Este arquivo
+requirements.txt - Dependências do projet
 
 ## Pipelines Implementados
 
