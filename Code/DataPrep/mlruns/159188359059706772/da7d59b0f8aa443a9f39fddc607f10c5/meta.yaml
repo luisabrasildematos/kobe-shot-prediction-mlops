@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/luisa/machinelearning-eng/Code/DataPrep/mlruns/159188359059706772/da7d59b0f8aa443a9f39fddc607f10c5/artifacts
+end_time: 1743476815149
+entry_point_name: ''
+experiment_id: '159188359059706772'
+lifecycle_stage: active
+run_id: da7d59b0f8aa443a9f39fddc607f10c5
+run_name: PreparacaoDados
+run_uuid: da7d59b0f8aa443a9f39fddc607f10c5
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1743476814952
+status: 4
+tags: []
+user_id: luisa
