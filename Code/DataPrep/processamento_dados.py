@@ -7,13 +7,16 @@ from pathlib import Path
 #configure mlflow
 mlflow.set_experiment("Kobe_Shot_Prediction")
 
-#define input and output paths
-input_dev_path = "../../Data/Raw/dataset_kobe_dev.parquet"
-input_prod_path = "../../Data/Raw/dataset_kobe_prod.parquet"
-output_path = "../../Data/Processed/data_filtered.parquet"
+# Define the project base path robustly
+project_root = Path(__file__).resolve().parent.parent.parent
 
-#create output directory if doesn't exist still
-os.makedirs(os.path.dirname(output_path), exist_ok = True)
+# Define paths based on project path
+input_dev_path = os.path.join(project_root, "Data", "Raw", "dataset_kobe_dev.parquet")
+input_prod_path = os.path.join(project_root, "Data", "Raw", "dataset_kobe_prod.parquet")
+output_path = os.path.join(project_root, "Data", "Processed", "data_filtered.parquet")
+
+# Ensure the output directory exists
+os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
 #start mlflow run with specific name
 with mlflow.start_run(run_name = "PreparacaoDados"):
