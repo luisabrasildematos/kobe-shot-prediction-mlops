@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/luisa/machinelearning-eng/mlruns/906390414180328548/583207562ca74b9a89aca8c2aecc93bf/artifacts
+end_time: 1743570356045
+entry_point_name: ''
+experiment_id: '906390414180328548'
+lifecycle_stage: active
+run_id: 583207562ca74b9a89aca8c2aecc93bf
+run_name: DataSplit
+run_uuid: 583207562ca74b9a89aca8c2aecc93bf
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1743570355760
+status: 3
+tags: []
+user_id: luisa
