@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/luisa/machinelearning-eng/mlruns/906390414180328548/c99b1ec67cbb4c96813b8adf342e6221/artifacts
+end_time: 1744144064469
+entry_point_name: ''
+experiment_id: '906390414180328548'
+lifecycle_stage: active
+run_id: c99b1ec67cbb4c96813b8adf342e6221
+run_name: Decision Tree Classifier
+run_uuid: c99b1ec67cbb4c96813b8adf342e6221
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1744144063017
+status: 3
+tags: []
+user_id: luisa

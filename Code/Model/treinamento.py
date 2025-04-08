@@ -12,8 +12,8 @@ from pycaret.classification import *
 project_root = Path(__file__).resolve().parent.parent.parent
 
 # define paths
-train_path = os.path.join(project_root, "Data", "Processed", "base_train_parquet")
-test_path = os.path.join(project_root, "Data", "Processed", "test_train_parquet")
+train_path = os.path.join(project_root, "Data", "Processed", "base_train.parquet")
+test_path = os.path.join(project_root, "Data", "Processed", "base_test.parquet")
 model_output_dir = os.path.join(project_root, "Data", "Modeling")
 
 # ensure model output directory exists
@@ -43,11 +43,11 @@ with mlflow.start_run(run_name = "Treinamento"):
     clf = setup(
         data = train_df,
         target = 'shot_made_flag',
-        train_size = 1.0,
+        test_data = test_df,
         session_id = 42,
         log_experiment = True,
         experiment_name = "Kobe_Shot_Prediction",
-        silent = True
+        verbose = False
     )
     
     # train logistic regression model
@@ -61,8 +61,10 @@ with mlflow.start_run(run_name = "Treinamento"):
     lr_predictions = predict_model(lr_model, data = test_df)
     lr_pred_proba = predict_model(lr_model, data = test_df, raw_score = True)
 
+    print("Columns in lr_pred_proba:", lr_pred_proba.columns.tolist)
+
     #calculate metrics
-    lr_logloss = log_loss(['shot_made_flag'], lr_pred_proba['Score_1'])
+    lr_logloss = log_loss(test_df['shot_made_flag'], lr_pred_proba['prediction_score_1'])
     lr_f1 = f1_score(test_df['shot_made_flag'], lr_predictions['prediction_label'])
 
     # log metrics to mlflow
@@ -80,7 +82,7 @@ with mlflow.start_run(run_name = "Treinamento"):
     dt_pred_proba = predict_model(dt_model, data = test_df, raw_score = True)
 
     # calculate metrics
-    dt_logloss = log_loss(test_df['shot_made_flag'], dt_pred_proba['Score_1'])
+    dt_logloss = log_loss(test_df['shot_made_flag'], dt_pred_proba['prediction_score_1'])
     dt_f1 = f1_score(test_df['shot_made_flag'], dt_predictions['prediction_label'])
 
     # log metrics to mlflow
@@ -111,13 +113,11 @@ with mlflow.start_run(run_name = "Treinamento"):
     mlflow.log_param("selected_model", model_name)
 
     #save model
-    model_path = os.path.join(model_output_dir, f"{model_name}.pkl")
-    save_model(selected_model, model_path)
+    saved_info = save_model(selected_model, model_name)
+    print(f"PyCaret saved model to: {saved_info}")
 
-    #log model artifact
-    mlflow.log_artifact(model_path)
+    #log model via sklearn interface instead
+    mlflow.sklearn.log_model(finalize_model(selected_model), model_name)
 
     print(f"Model training completed successfully")
     print(f"Selected model: {model_name}")
-    print(f"Model saved to: {model_path}")
-

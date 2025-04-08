@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/luisa/machinelearning-eng/mlruns/906390414180328548/646aacf2c61b4b78b88d90227e1bc630/artifacts
+end_time: 1744142662659
+entry_point_name: ''
+experiment_id: '906390414180328548'
+lifecycle_stage: active
+run_id: 646aacf2c61b4b78b88d90227e1bc630
+run_name: Treinamento
+run_uuid: 646aacf2c61b4b78b88d90227e1bc630
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1744142643060
+status: 3
+tags: []
+user_id: luisa

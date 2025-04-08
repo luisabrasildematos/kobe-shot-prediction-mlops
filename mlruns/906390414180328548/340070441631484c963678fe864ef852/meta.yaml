@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/luisa/machinelearning-eng/mlruns/906390414180328548/340070441631484c963678fe864ef852/artifacts
+end_time: 1744079420956
+entry_point_name: ''
+experiment_id: '906390414180328548'
+lifecycle_stage: active
+run_id: 340070441631484c963678fe864ef852
+run_name: Logistic Regression
+run_uuid: 340070441631484c963678fe864ef852
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1744079420539
+status: 3
+tags: []
+user_id: luisa
