@@ -1,1 +1,4 @@
 venv_ml_project/ 
+venv_ml_project/ 
+*.pkl 
+mlruns/ 
