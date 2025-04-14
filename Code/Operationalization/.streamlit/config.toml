@@ -1,7 +1,0 @@
-[theme]
-base = "light"  # or "dark"
-primaryColor = "#F63366"  # Replace with your desired primary color
-backgroundColor = "#FFFFFF"  # Replace with your desired background color
-secondaryBackgroundColor = "#F0F2F6"  # Replace with your desired secondary background color
-textColor = "#262730"  # Replace with your desired text color
-font = "sans serif"  # Replace with your desired font
