@@ -6,26 +6,41 @@ import matplotlib.pyplot as plt
 import os
 from pathlib import Path
 from sklearn.metrics import confusion_matrix
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
 
-# Define project base path
+
+#define project base path
 project_root = Path(__file__).resolve().parent.parent.parent
 
-# Define paths
+#define paths
 train_path = os.path.join(project_root, "Data", "Processed", "base_train.parquet")
 test_path = os.path.join("Data", "Processed", "base_test.parquet")
 prod_results_path = os.path.join("project_root", "Data", "Processed", "production_results.parquet")
 
-# Set up page
+#load data
+@st.cache_data
+def load_data(path):
+    if os.path.exists(path):
+        return pd.read_parquet(path)
+    else:
+        return None
+
+train_df = load_data(train_path)
+test_df = load_data(test_path)
+prod_results = load_data(prod_results_path)
+
+#set up page
 st.title("Kobe Bryant Shot Prediction Monitor")
 st.markdown('<p style = "font-size:48px;">🏀</p>',
 unsafe_allow_html = True)
 
-# Load data
-train_df = pd.read_parquet(train_path) if os.path.exists(train_path) else None
-test_df = pd.read_parquet(test_path) if os.path.exists(test_path) else None
-prod_results = pd.read_parquet(prod_results_path) if os.path.exists(prod_results_path) else None
+#add selectedbox for model selection
+model_options = ["Logistic Regression", "Decision Tree"]
+selected_model = st.selectbox("Select Model", options = model_options)
 
-# Performance metrics section
+#performance metrics section
 st.header("1. Model Performance")
 col1, col2 = st.columns(2)
 
@@ -58,8 +73,10 @@ with col2:
             for j in range(cm.shape[1]):
                 ax.text(j, i, cm[i, j], ha="center", va="center")
         st.pyplot(fig)
+    else:
+        st.warning("Production results data is missing or doesn't have required columns.")
 
-# Model health monitoring
+#model health monitoring
 st.header("2. Model Health Monitoring")
 st.write("""
 ### Monitoring with Shot_Made_Flag available:
@@ -73,8 +90,34 @@ st.write("""
 - Track confidence score of predictions 
 """)
 
-# Retraining strategies
+#retraining strategies
 st.header("3. Retraining Strategies")
+
+#slider for threshold adjustment
+threshold = st.slider("Set F1 score threshold", min_value = 0.0,
+max_value = 1.0, value = 0.8)
+
+#model training function
+def train_model(df, model_type):
+    #define features and target
+    features = df.drop("shot_made_flag", axis = 1)
+    target = df["shot_made_flag"]
+
+    X_train, X_val, y_train, y_val = train_test_split(features, target,
+test_size = 0.2, random_state = 42)
+
+    if model_type == "Logistic Regression":
+        model = LogisticRegression(max_iter = 1000)
+    elif model_type == "Decision Tree":
+        model = DecisionTreeClassifier()
+
+    model.fit(X_train, y_train)
+
+    y_pred = model.predict(X_val)
+    accuracy = accuracy_score(y_val, y_pred)
+    st.write(f"{model_type} Accuracy: {accuracy}")
+
+    return model, X_val, y_val
 
 st.subheader("Reactivate Strategy")
 st.write("Triggers model updates based on performance degradation:")
@@ -88,5 +131,32 @@ st.write("- Track performance metrics over time")
 st.write("- Monitor feature distribution changes")
 st.write("- Schedule retraining before hitting critical thresholds")
 
-# Footer
+#button for triggering retraining
+if st.button("Retrain Model"):
+    if train_df is not None:
+        with st.spinner('Training model...'):
+            model, X_val, y_val = train_model(train_df, selected_model)
+        st. success('Model retrained successfully!')
+    else:
+        st.error("Training data not available")            
+#add file uploader
+uploaded_file = st.file_uploader("Upload file to predict:")
+
+if uploaded_file is not None:
+    try:
+        predict_df = pd.read_csv(uploaded_file)
+        st.write("Uploaded data:")
+        st.dataframe(predict_df.head()) #display first rows
+
+        #make predictions using retrained model if available
+        if 'model' in locals():
+            predictions = model.predict(predict_df) #use retrained model
+            st.write("Predictions:")
+            st.write(predictions)
+        else:
+            st.warning("Please retrain the model first.")
+    except Exception as e:
+        st.error(f"An error occurred: {e}")
+
+#footer
 st.caption("Kobe Bryant Shot Prediction | TDSP Framework Implementation")
